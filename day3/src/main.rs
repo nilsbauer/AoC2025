@@ -1,5 +1,6 @@
 use std::fs;
 
+const DIGIT_NUM: usize = 12;
 
 fn main() {
     let input = fs::read_to_string("input1.txt").unwrap();
@@ -7,35 +8,26 @@ fn main() {
     let mut res = 0;
 
     for line in input {
-        let mut first_digit = None;
-        let pot_first_digit = &line[0..line.len() - 1];
-        for (idx, digit) in pot_first_digit.iter().enumerate() {
-            first_digit = first_digit.map_or(Some((idx, digit)), |(i, dig)|
-                if dig < digit {
-                    Some((idx, digit))
-                } else {
-                    Some((i, dig))
-                }
-            );
+        let mut last_idx = 0;
+        let mut line_res : u64 = 0;
+        for digit_idx in 0..DIGIT_NUM {
+            let pot_digits = &line[last_idx .. line.len() - DIGIT_NUM + digit_idx + 1];
+            let mut current_digit = None;
+            for (idx, digit) in pot_digits.iter().enumerate() {
+                current_digit = current_digit.map_or(Some((idx, digit)), |(i, dig)|
+                    if dig < digit {
+                        Some((idx, digit))
+                    } else {
+                        Some((i, dig))
+                    }
+                );
+            }
+            let (idx, digit) = current_digit.unwrap();
+            last_idx += idx + 1;
+            line_res = line_res * 10 + u64::from(digit.to_digit(10).unwrap());
         }
-        let (first_idx, first_digit) = first_digit.unwrap();
-
-        let pot_second_digit = &line[first_idx+1..line.len()];
-        let mut second_digit = None;
-        for digit in pot_second_digit {
-            second_digit = second_digit.map_or(Some(digit), |d|
-                if d < digit {
-                    Some(digit)
-                } else {
-                    Some(d)
-                }
-            );
-        }
-        let second_digit = second_digit.unwrap();
-        let line_res = first_digit.to_digit(10).unwrap() * 10 + second_digit.to_digit(10).unwrap();
+        println!("{line_res}");
         res += line_res;
-
-        println!("{}", line_res);
     }
     println!("--------------");
     println!("{res}");
