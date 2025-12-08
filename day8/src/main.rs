@@ -3,7 +3,6 @@ use std::fs;
 use std::num::ParseIntError;
 use std::str::FromStr;
 
-const CONNECTION_NUM : u32 = 1000;
 
 fn main() {
     let input = fs::read_to_string("input.txt").unwrap();
@@ -14,27 +13,18 @@ fn main() {
         boxes.add(jb);
     }
 
-    for _i in 0..CONNECTION_NUM {
-        boxes.connect_closest();
+    let mut last_connection = None;
+    while boxes.list[0].circuit == None || boxes.list.iter().any(|b| b.circuit != boxes.list[0].circuit) {
+        last_connection = Some(boxes.connect_closest());
     }
 
-    let mut connection_map = HashMap::new();
-    for bx in boxes.list {
-        if let Some(circuit) = bx.circuit {
-            let count = connection_map.entry(circuit).or_insert(0);
-            *count += 1;
-        }
+    if let Some((idx1, idx2)) = last_connection {
+        println!("last boxes:");
+        println!("{:?}", boxes.list[idx1]);
+        println!("{:?}", boxes.list[idx2]);
+        let res = boxes.list[idx1].x * boxes.list[idx2].x;
+        println!("{res}");
     }
-    let mut res = 1;
-    for i in 1..=3 {
-        if let Some((circuit, connections)) = connection_map.iter().max_by_key(|(_k, v)| **v) {
-            let circuit = circuit.clone();
-            println!("{i}. circuit: {circuit} with {connections} connections");
-            res *= connections;
-            connection_map.remove(&circuit);
-        }
-    }
-    println!("{res}");
 }
 
 struct BoxList {
@@ -59,24 +49,31 @@ impl BoxList {
         self.list.push(bx);
     }
 
-    fn connect_closest(&mut self) {
+    fn connect_closest(&mut self) -> (usize, usize) {
         let ((idx1, idx2), _dist) = self.distances.iter().min_by_key(|(_, dist)| **dist).expect("no closest boxes found");
-        let new_circuit_num = self.list[*idx1].circuit.unwrap_or_else(|| {
+        let idx1 = idx1.clone();
+        let idx2 = idx2.clone();
+        self.distances.remove(&(idx1, idx2));
+        if self.list[idx1].circuit.is_some_and(|c1| self.list[idx2].circuit.is_some_and(|c2| c1 == c2)) {
+            return (idx1, idx2);
+        }
+
+        let new_circuit_num = self.list[idx1].circuit.unwrap_or_else(|| {
             self.next_circuit += 1;
             self.next_circuit
         });
-        self.list[*idx1].circuit = Some(new_circuit_num);
-        if let Some(connecting_circuit) = self.list[*idx2].circuit {
+        self.list[idx1].circuit = Some(new_circuit_num);
+        if let Some(connecting_circuit) = self.list[idx2].circuit {
             for bx in self.list.iter_mut() {
                 if bx.circuit == Some(connecting_circuit) {
                     bx.circuit = Some(new_circuit_num);
                 }
             }
         } else {
-            self.list[*idx2].circuit = Some(new_circuit_num);
+            self.list[idx2].circuit = Some(new_circuit_num);
         }
 
-        self.distances.remove(&(*idx1, *idx2));
+        (idx1, idx2)
     }
 }
 
