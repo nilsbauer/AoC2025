@@ -1,0 +1,150 @@
+Matrix:
+
+|  0  0  0  0  1  1 |  3
+|  0  1  0  0  0  1 |  5
+|  0  0  1  1  1  0 |  4
+|  1  1  0  1  0  0 |  7
+
+row for first column: IV
+
+saved rows:
+|  1  1  0  1  0  0 |  7
+
+normalize remaining rows (NOP):
+|  0  0  0  0  1  1 |  3
+|  0  1  0  0  0  1 |  5
+|  0  0  1  1  1  0 |  4
+
+row for second column: II
+
+saved rows:
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  1 |  5
+
+normalize remaining rows (NOP):
+|  0  0  0  0  1  1 |  3
+|  0  0  1  1  1  0 |  4
+
+row for third column: II
+
+saved rows:
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  1 |  5
+|  0  0  1  1  1  0 |  4
+
+normalize remaining rows (NOP):
+|  0  0  0  0  1  1 |  3
+
+row for fourth column: not found
+
+saved rows:
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  1 |  5
+|  0  0  1  1  1  0 |  4
+|                   |
+
+row for fifth column: I
+
+saved rows:
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  1 |  5
+|  0  0  1  1  1  0 |  4
+|                   |
+|  0  0  0  0  1  1 |  3
+
+row for sixth column: not found
+
+saved rows:
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  1 |  5
+|  0  0  1  1  1  0 |  4
+|                   |
+|  0  0  0  0  1  1 |  3
+|                   |
+
+----------- INTERLUDE --------------------
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  1 |  5
+|  0  0  1  1  1  0 |  4
+|  0  0  0  1  0  0 |  a
+|  0  0  0  0  1  1 |  3
+|  0  0  0  0  0  1 |  b
+
+|  1  0  0  0  0  0 |  2-a+b
+|  0  1  0  0  0  0 |  5-b
+|  0  0  1  0  0  0 |  1+b-a
+|  0  0  0  1  0  0 |  a
+|  0  0  0  0  1  0 |  3-b
+|  0  0  0  0  0  1 |  b
+
+ges: 11+b-a
+additional constraints
+b: [0,3]
+b > a-1
+
+a: [0,4]
+a < 1+b
+
+------------------------------------------
+
+row VI doesn't exist
+trying intervall [0, 3]
+column sum is 2 -> as big as possible (>1)
+
+trying f = 3:
+
+normalize saved rows using row VI:
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  0 |  2
+|  0  0  1  1  1  0 |  4
+|                   |
+|  0  0  0  0  1  0 |  0
+|  0  0  0  0  0  1 |  3
+
+normalize saved rows using row V:
+|  1  1  0  1  0  0 |  7
+|  0  1  0  0  0  0 |  2
+|  0  0  1  1  0  0 |  4
+|                   |
+|  0  0  0  0  1  0 |  0
+|  0  0  0  0  0  1 |  3
+
+row IV doesn't exist
+trying intervall [0, 4]
+column sum is 2 -> as big as possible (>1)
+
+trying d = 4:
+
+normalize saved rows using row IV:
+|  1  1  0  0  0  0 |  3
+|  0  1  0  0  0  0 |  2
+|  0  0  1  0  0  0 |  0
+|  0  0  0  1  0  0 |  4
+|  0  0  0  0  1  0 |  0
+|  0  0  0  0  0  1 |  3
+
+normalize saved rows using row III (NOP):
+|  1  1  0  0  0  0 |  3
+|  0  1  0  0  0  0 |  2
+|  0  0  1  0  0  0 |  0
+|  0  0  0  1  0  0 |  4
+|  0  0  0  0  1  0 |  0
+|  0  0  0  0  0  1 |  3
+
+normalize saved rows using row II:
+|  1  0  0  0  0  0 |  1
+|  0  1  0  0  0  0 |  2
+|  0  0  1  0  0  0 |  0
+|  0  0  0  1  0  0 |  4
+|  0  0  0  0  1  0 |  0
+|  0  0  0  0  0  1 |  3
+
+solution:
+a = 1  1
+b = 2  3
+c = 0  0
+d = 4  3
+e = 0  1
+f = 3  2
+
+gesamt = 10

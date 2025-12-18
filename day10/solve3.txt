@@ -1,0 +1,92 @@
+Matrix:
+
+|  1  1  1  0 | 10
+|  1  0  1  1 | 11
+|  1  0  1  1 | 11
+|  1  1  0  0 |  5
+|  1  1  1  0 | 10
+|  0  0  1  0 |  5
+
+row for first column: I
+
+saved rows:
+|  1  1  1  0 | 10
+
+normalize remaining rows:
+|  0 -1  0  1 |  1
+|  0 -1  0  1 |  1
+|  0  0 -1  0 | -5
+|  0  0  0  0 |  0
+|  0  0  1  0 |  5
+
+row for second column: I * -1
+
+saved rows:
+|  1  1  1  0 | 10
+|  0  1  0 -1 | -1
+
+normalize remaining rows:
+|  0  0  0  0 |  0
+|  0  0 -1  0 | -5
+|  0  0  0  0 |  0
+|  0  0  1  0 |  5
+
+row for third column: II * -1
+
+saved rows:
+|  1  1  1  0 | 10
+|  0  1  0 -1 | -1
+|  0  0  1  0 |  5
+
+normalize remaining rows:
+|  0  0  0  0 |  0
+|  0  0  0  0 |  0
+|  0  0  0  0 |  0
+
+row for fourth column: not found
+
+saved rows:
+|  1  1  1  0 | 10
+|  0  1  0 -1 | -1
+|  0  0  1  0 |  5
+|             |
+
+---------- INTERLUDE -------------
+
+|  1  0  0  0 |  6 -1a
+|  0  1  0  0 | -1  1a
+|  0  0  1  0 |  5  0a
+|  0  0  0  1 |  0  1a
+
+gesamt: 10 + a
+
+constraints:
+a <= 6
+a >= 1
+
+-> a = 1
+----------------------------------
+
+row four doesn't exist
+has to be at least 1 (II)
+trying intervall [1; 11]
+column sum is -1 -> as small as possible
+
+trying d = 1
+
+normalizing saved rows using row IV:
+|  1  1  1  0 | 10
+|  0  1  0  0 |  0
+|  0  0  1  0 |  5
+|  0  0  0  1 |  1
+
+normalizing saved rows:
+|  1  0  0  0 |  5
+|  0  1  0  0 |  0
+|  0  0  1  0 |  5
+|  0  0  0  1 |  1
+
+a = 5
+b = 0
+c = 5
+d = 1

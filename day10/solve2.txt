@@ -1,0 +1,133 @@
+Matrix:
+
+|  1  0  1  1  0 |  7
+|  0  0  0  1  1 |  5
+|  1  1  0  1  1 | 12
+|  1  1  0  0  1 |  7
+|  1  0  1  0  1 |  2
+
+row for first column: I
+
+saved rows:
+|  1  0  1  1  0 |  7
+
+normalize all remaining rows:
+|  0  0  0  1  1 |  5
+|  0  1 -1  0  1 |  5
+|  0  1 -1 -1  1 |  0
+|  0  0  0 -1  1 | -5
+
+row for second columns: II
+
+saved rows:
+|  1  0  1  1  0 |  7
+|  0  1 -1  0  1 |  5
+
+normalize all remaining rows:
+|  0  0  0  1  1 |  5
+|  0  0  0 -1  0 | -5
+|  0  0  0 -1  1 | -5
+
+row for third column: none found
+
+row for fourth column: I
+
+saved rows:
+|  1  0  1  1  0 |  7
+|  0  1 -1  0  1 |  5
+|                |
+|  0  0  0  1  1 |  5
+
+normalize all remaining rows:
+|  0  0  0  0  1 |  0
+|  0  0  0  0  2 |  0
+
+row for fifth column: I
+
+saved rows:
+|  1  0  1  1  0 |  7
+|  0  1 -1  0  1 |  5
+|                |
+|  0  0  0  1  1 |  5
+|  0  0  0  0  1 |  0
+
+normalize rows using row V:
+|  1  0  1  1  0 |  7
+|  0  1 -1  0  0 |  5
+|                |
+|  0  0  0  1  0 |  5
+|  0  0  0  0  1 |  0
+
+normalize rows using row IV:
+|  1  0  1  0  0 |  2
+|  0  1 -1  0  0 |  5
+|                |
+|  0  0  0  1  0 |  5
+|  0  0  0  0  1 |  0
+
+------------ INTERLUDE ----------------------
+
+|  1  0  0  0  0 |  2 -1a
+|  0  1  0  0  0 |  5  1a
+|  0  0  1  0  0 |  0  1a
+|  0  0  0  1  0 |  5  0a
+|  0  0  0  0  1 |  0  0a
+
+gesamt: 12 + a
+
+constraints:
+a < 2
+a > 0
+
+-> a = 0
+
+---------------------------------------------
+
+row III doesn't exist, trying intervall [0, 2]
+trying c = 0:
+
+normalize rows using row III (c = 0):
+|  1  0  0  0  0 |  2
+|  0  1  0  0  0 |  5
+|  0  0  1  0  0 |  0
+|  0  0  0  1  0 |  5
+|  0  0  0  0  1 |  0
+
+normalize rows using row II (NOP)
+
+a = 2
+b = 5
+c = 0
+d = 5
+e = 0
+
+gesamt: 12
+
+trying c = 1:
+(...)
+
+a = 1
+b = 6
+c = 1
+d = 5
+e = 0
+
+gesamt: 13
+
+trying c = 2:
+(...)
+
+a = 0
+b = 7
+c = 2
+d = 5
+e = 0
+
+gesamt: 14
+
+best case:
+a = 2
+b = 5
+c = 0
+d = 5
+e = 0

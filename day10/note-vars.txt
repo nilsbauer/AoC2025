@@ -1,0 +1,98 @@
+size 2:
+
+1 1 5
+0 1 m
+
+1 0 5-m
+0 1 m
+
+ges = 5
+m : [0,5]
+
+for
+
+1 n b
+0 1 m
+
+ges(m)  = b - nm + m
+ges'(m) = 1 - n
+
+
+size 3:
+
+1  a  b  x
+0  1  c  y
+0  0  1  m
+
+1  0  0  | x-bm-ay+acm
+0  1  0  | y-cm
+0  0  1  | m
+
+ges(m)  = x-bm-ay+acm+y-cm+m
+ges'(m) = 1+ac-b-c
+
+size 4:
+
+1   a   b   c   | x
+0   1   d   e   | y
+0   0   1   f   | z
+0   0   0   1   | m
+
+1   a   b   0   | x-cm
+0   1   d   0   | y-em
+0   0   1   0   | z-fm
+0   0   0   1   | m
+
+1   a   0   0   | x-cm-bz+bfm
+0   1   0   0   | y-em-dz+dfm
+0   0   1   0   | z-fm
+0   0   0   1   | m
+
+1   0   0   0   | x-cm-bz+bfm-ay+aem+adz-adfm
+0   1   0   0   | y-em-dz+dfm
+0   0   1   0   | z-fm
+0   0   0   1   | m
+
+ges (m) = x - bz - ay + adz + y - dz + z - cm + bfm + aem - adfm - em + dfm - fm + m
+ges'(m) = -c + bf + ae - adf - e + df - f + 1
+        = -adf + bf + ae + df - c - e - f + 1
+
+= - [1,2] [2,3] [3,4] + [1,3] [3,4]
+
+
+size 5:
+
+1   a   b   c   d   | w
+0   1   e   f   g   | x
+0   0   1   h   i   | y
+0   0   0   1   j   | z
+0   0   0   0   1   | m
+
+1   a   b   c   0   | w-dm
+0   1   e   f   0   | x-gm
+0   0   1   h   0   | y-im
+0   0   0   1   0   | z-jm
+0   0   0   0   1   | m
+
+1   a   b   0   0   | w-dm-cz+cjm
+0   1   e   0   0   | x-gm-fz+fjm
+0   0   1   0   0   | y-im-hz+hjm
+0   0   0   1   0   | z-jm
+0   0   0   0   1   | m
+
+1   a   0   0   0   | w-dm-cz+cjm-by+bim+bhz-bhjm
+0   1   0   0   0   | x-gm-fz+fjm-ey+eim+ehz-ehjm
+0   0   1   0   0   | y-im-hz+hjm
+0   0   0   1   0   | z-jm
+0   0   0   0   1   | m
+
+1   a   0   0   0   | w-dm-cz+cjm-by+bim+bhz-bhjm-ax+agm+afz-afjm+aey-aeim-aehz+aehjm
+0   1   0   0   0   | x-gm-fz+fjm-ey+eim+ehz-ehjm
+0   0   1   0   0   | y-im-hz+hjm
+0   0   0   1   0   | z-jm
+0   0   0   0   1   | m
+
+ges'(m) = -d + cj + bi - bhj + ag - afj - aei + aehj - g + fj + ei - ehj - i + hj - j + 1
+        = aehj - bhj - afj - aei - ehj + cj + bi + ag + fj + ei + hj -d - g - i - j + 1
+= Diagonale über 1er Diagonale multipliziert +
+  
